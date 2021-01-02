@@ -7,7 +7,6 @@ start = time.time()
 print('Start Time = ', time.time() - start)
 
 data = dtable.fread("[file path]/train.csv").to_pandas()
-data = data.drop(['date', 'ts_id'], axis=1)
 data = data.astype({c: np.float32 for c in data.select_dtypes(include='float64').columns})
 data = data.query('weight > 0')
 data = data.fillna(0)
