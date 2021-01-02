@@ -14,7 +14,7 @@ data = data.fillna(0)
 y = data[['resp']]
 y = [0 if i < 0 else 1 for i in y['resp']]
 binary_df = pd.DataFrame(data=y)
-binary_df.to_csv('BinaryResp2.csv')
+binary_df.to_csv('BinaryResp.csv')
 
 print('Length = ', len(y))
 print('Done = ', time.time() - start)
