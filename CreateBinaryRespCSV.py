@@ -11,11 +11,12 @@ data = data.astype({c: np.float32 for c in data.select_dtypes(include='float64')
 data = data.query('weight > 0')
 data = data.fillna(0)
 
-y = data[['resp']]
-x = [0 if i < 0 else 1 for i in y['resp']]
-binary_df = pd.DataFrame({'Response':y, 'Classification':x})
+data = data[['resp']]
+x = [0 if i < 0 else 1 for i in data['resp']]
 
-binary_df.to_csv('BinaryResp.csv')
+data['Binary Response'] = x
+print(data.head())
+data.to_csv('BinaryResp.csv')
 
-print('Length = ', len(y))
+print('Length = ', len(data))
 print('Done = ', time.time() - start)
