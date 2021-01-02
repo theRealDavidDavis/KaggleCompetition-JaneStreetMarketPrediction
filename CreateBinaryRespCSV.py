@@ -12,8 +12,9 @@ data = data.query('weight > 0')
 data = data.fillna(0)
 
 y = data[['resp']]
-y = [0 if i < 0 else 1 for i in y['resp']]
-binary_df = pd.DataFrame(data=y)
+x = [0 if i < 0 else 1 for i in y['resp']]
+binary_df = pd.DataFrame({'Response':y, 'Classification':x})
+
 binary_df.to_csv('BinaryResp.csv')
 
 print('Length = ', len(y))
