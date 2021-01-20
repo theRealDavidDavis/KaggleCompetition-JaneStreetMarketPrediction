@@ -4,7 +4,7 @@ I am currently in the Jane Street Market Prediction Kaggle Competition - I will 
 As this competition is currently ongoing - I will refrain from posting anything which may hurt my current position in the competition.
 
 
-**This is under construction...**
+**This is under construction...  I will likely make this more readable once I am settled into the semester and I am more comfortable with my stadning in the competition.**
 
 Using the csv file generated from my script "CreateBinaryRespCSV.py", I made the following obersavtions in Minitab:
 
