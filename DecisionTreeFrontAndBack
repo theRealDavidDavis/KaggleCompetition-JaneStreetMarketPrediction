@@ -1,0 +1,48 @@
+import time
+import pickle
+import pandas as pd
+import numpy as np
+import datatable as dtable
+
+from sklearn import tree
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+start = time.time()
+print('Start Time = ', time.time() - start)
+
+data = dtable.fread("C:/Users/p2dav/Desktop/Data Science and Machine Learning/Kaggle Competitions/2021/Jane Street Market Prediction/train.csv").to_pandas()
+data = data.drop(['date', 'ts_id'], axis=1)
+data = data.query('weight > 0')
+data = data.fillna(0)
+
+dataTail = data.tail(420000)
+data = data.head(420000)
+data.append(dataTail)
+print('DataFrame ready at time', time.time() - start)
+
+x = data.drop(['resp_1', 'resp_2', 'resp_3', 'resp_4', 'resp'], axis=1)
+y = data[['resp']]
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1, train_size=.6, test_size=.39)
+model = tree.DecisionTreeRegressor()
+
+model.fit(x_train, y_train)
+print('Model fitted at time', time.time() - start)
+
+y_predict = model.predict(x_test)
+predictions_df = pd.DataFrame(data=y_predict)
+print('Predictions made at time', time.time() - start)
+
+z_predict = [0 if i < 0 else 1 for i in y_predict]
+z_test = [0 if i < 0 else 1 for i in y_test['resp']]
+
+tmpS = model.score(x_test, y_test)
+print('Score = ', tmpS)
+tmpA = accuracy_score(z_test, z_predict)
+print('Accuracy =', tmpA)
+
+filename = 'JaneStreet_DTM_FB_840k_60_39.sav'
+pickle.dump(model, open(filename, 'wb'))
+
+print('Total Time =', time.time() - start)
