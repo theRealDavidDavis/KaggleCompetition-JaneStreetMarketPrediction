@@ -5,4 +5,4 @@ As this competition is currently ongoing - I will refrain from posting anything 
 
 Using the csv file generated from my script "CreateBinaryRespCSV.py", I made the following obersavtions in Minitab:
 
-![alt text](https://github.com/theRealDavidDavis/theRealDavidDavis/KaggleCompetition-JaneStreetMarketPrediction/blob/main/Figures/Table%20of%20Figures)
+![alt text](https://github.com/theRealDavidDavis/theRealDavidDavis/KaggleCompetition-JaneStreetMarketPrediction/blob/main/Figures/Table%20of%20Figures.jpeg=true?)
