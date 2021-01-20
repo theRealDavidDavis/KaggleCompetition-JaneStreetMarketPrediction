@@ -1,0 +1,26 @@
+import os
+import pickle
+import janestreet
+
+import pandas as pd
+import numpy as np
+import datatable as dtable
+
+from sklearn import tree
+from tqdm.auto import tqdm
+
+filename = '../input/[kaggle file path]'
+model = pickle.load(open(filename, 'rb'))
+
+
+env = janestreet.make_env()
+
+for (test_df, pred_df) in tqdm(env.iter_test()):
+
+    test_df = test_df.drop(['date'], axis=1)
+    test_df = test_df = np.nan_to_num(test_df, nan=0)
+
+    tmp = model.predict(test_df.iloc[[0]])
+    pred_df.action = 1 if tmp > 0 else 0
+
+    env.predict(pred_df)
