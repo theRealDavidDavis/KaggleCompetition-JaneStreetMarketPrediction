@@ -1,0 +1,28 @@
+import time
+import os
+import janestreet
+import pandas as pd
+import numpy as np
+import datatable as dtable
+
+from sklearn.model_selection import train_test_split
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+
+filename = '../input/[kaggle file path]'
+model =  keras.models.load_model(filename)
+
+
+env = janestreet.make_env()
+iter_test = env.iter_test()
+
+for (test_df, pred_df) in iter_test:
+    
+    test_df = test_df.drop(['date'], axis=1)
+    test_df = np.nan_to_num(test_df, nan = 0)
+    
+    
+    tmp = model.predict(test_df)[0]
+    pred_df.action = 1 if tmp > 0 else 0
+    env.predict(pred_df)
